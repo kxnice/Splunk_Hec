@@ -28,16 +28,8 @@ class Splunk:
 
     @classmethod
     def create_hec_endpoint(cls) -> str:
-        hec_endpoint = None
-        response_xml = cls.service.post("/services/data/inputs/http", name="hec_python", source="kulmiye_hec_source",
-                                        index="hec", disabled=0)
-        decode_xml = response_xml.body.read()
-        decode_xml = ET.fromstring(decode_xml.decode('utf-8'))
-        parse_xml_for_hec_endpoint = decode_xml.findall('.//{http://www.w3.org/2005/Atom}title')
-        for index, item in enumerate(parse_xml_for_hec_endpoint):
-            if index == 1:
-                hec_endpoint = item.text
-        return hec_endpoint
+        cls.service.post("/services/data/inputs/http", name="hec_python", source="kulmiye_hec_source",
+                         index="hec", disabled=0)
 
     @classmethod
     def get_hec_token(cls) -> str:
