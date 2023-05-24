@@ -27,7 +27,7 @@ class Splunk:
             print(e)
 
     @classmethod
-    def create_hec_endpoint(cls) -> str:
+    def create_hec_endpoint(cls) -> None:
         cls.service.post("/services/data/inputs/http", name="hec_python", source="kulmiye_hec_source",
                          index="hec", disabled=0)
 
