@@ -20,10 +20,8 @@ class Splunk:
         urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         try:
             res = requests.post("https://localhost:8089/services/admin/token-auth/tokens_auth",
-                                auth=(os.environ['user'],
-                                      os.environ[
-                                          'password']),
-                                verify=False, data={'disabled': 'false'})
+                                headers={'Authorization': f'Bearer {os.environ.get("BEARER_TOKEN")}'}, verify=False,
+                                data={'disabled': 'false'})
             res.raise_for_status()
         except Exception as e:
             print(e)
